@@ -452,8 +452,8 @@ async function onTabCreated(nativeTab: NativeTab, attached?: boolean) {
   }
 
   // Predefined position
-  if (Tabs.newTabsPosition[tab.index]) {
-    const position = Tabs.newTabsPosition[tab.index]
+  const position = Tabs.newTabsPosition[tab.index] ?? Tabs.takeDroppedFileTabPosition(tab)
+  if (position) {
     panel = Sidebar.panelsById[position.panel]
     if (!Utils.isTabsPanel(panel)) {
       const prevTab = Tabs.list[tab.index - 1]

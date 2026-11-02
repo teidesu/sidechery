@@ -1,4 +1,4 @@
-import { DragInfo, DstPlaceInfo, ItemInfo, Panel, Tab, TabsPanel } from 'src/types'
+import { DragInfo, DstPlaceInfo, ItemInfo, NewTabPosition, Panel, Tab, TabsPanel } from 'src/types'
 import { DstTreePos, PanelType } from 'src/enums'
 import * as D from 'src/defaults'
 import * as Sidebar from 'src/services/sidebar.fg'
@@ -218,6 +218,16 @@ export async function createFromDragEvent(e: DragEvent, dst: DstPlaceInfo): Prom
   if (inside) {
     const parentTab = Tabs.byId[dst.parentId]
     if (parentTab) dst.index = parentTab.index + 1
+  }
+
+  if (result?.file && !e.defaultPrevented) {
+    droppedFileTabPosition = {
+      index: dst.index ?? panel.nextTabIndex,
+      parent: dst.parentId,
+      panel: panel.id,
+      time: Date.now(),
+    }
+    return
   }
 
   if (result?.file) result.url = URL.createObjectURL(result.file)
@@ -602,6 +612,20 @@ export async function reopenTabsInNewContainer(tabIds: ID[]): Promise<void> {
 
   const items = Tabs.getTabsInfo(tabIds)
   await Tabs.reopen(items, { panelId: firstTab.panelId, containerId: container.id })
+}
+
+let droppedFileTabPosition: (NewTabPosition & { time: number }) | undefined
+
+export function takeDroppedFileTabPosition(tab: Tab): NewTabPosition | undefined {
+  const position = droppedFileTabPosition
+  if (!position) return
+  if (Date.now() - position.time > 3000) {
+    droppedFileTabPosition = undefined
+    return
+  }
+  if (!(tab.pendingUrl || tab.url).startsWith('file:')) return
+  droppedFileTabPosition = undefined
+  return position
 }
 
 /**

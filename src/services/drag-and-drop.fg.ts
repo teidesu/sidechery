@@ -12,6 +12,7 @@ import * as Containers from 'src/services/containers'
 import * as Bookmarks from 'src/services/bookmarks.fg'
 import * as Tabs from 'src/services/tabs.fg'
 import * as Logs from 'src/services/logs'
+import * as Info from 'src/services/info'
 import * as IPC from 'src/services/ipc'
 import * as TabsSync from 'src/services/tabs.fg.sync'
 import * as Permissions from 'src/services/permissions.fg'
@@ -1055,6 +1056,11 @@ let droppedRecentlyTimeout: number | undefined
  * Drop event handler
  */
 export async function onDrop(e: DragEvent): Promise<void> {
+  // Chromium hides OS file paths from pages, but its default drop action opens file:// tabs
+  const types = e.dataTransfer?.types ?? []
+  const filesOnly = Info.isChromium && types.length > 0 && types.every(t => t === 'Files')
+  if (!filesOnly) e.preventDefault()
+
   droppedRecently = true
   clearTimeout(droppedRecentlyTimeout)
   droppedRecentlyTimeout = setTimeout(() => {
@@ -1122,6 +1128,8 @@ export async function onDrop(e: DragEvent): Promise<void> {
     }
     applyLvlOffset(DnD.reactive.pointerLvl, dst)
   }
+
+  if (filesOnly && !((toTabs && !DnD.reactive.dstPin) || toTabsPanel)) e.preventDefault()
 
   // Check if it's a native bookmark
   if (srcT === E.DragType.Native) {

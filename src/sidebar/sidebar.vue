@@ -32,7 +32,7 @@
   @dragenter="DnD.onDragEnter"
   @dragleave="DnD.onDragLeave"
   @dragover.prevent="DnD.onDragMove"
-  @drop.stop.prevent="DnD.onDrop"
+  @drop.stop="DnD.onDrop"
   @contextmenu.stop.prevent
   @mouseenter="onMouseEnter"
   @mouseleave="onMouseLeave"
