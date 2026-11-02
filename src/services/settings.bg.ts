@@ -8,6 +8,7 @@ import * as Store from 'src/services/storage.bg'
 import * as Windows from 'src/services/windows.bg'
 import * as Omnibox from 'src/services/omnibox.bg'
 import * as Styles from 'src/services/styles.bg'
+import * as Fullscreen from 'src/services/fullscreen'
 import * as SnapshotsBg from 'src/services/snapshots.bg'
 import * as IPC from 'src/services/ipc'
 import * as Logs from 'src/services/logs'
@@ -65,6 +66,8 @@ export function updateSettingsBg(settings?: SettingsState | null): void {
   const snapIntervalChanged = prev.snapInterval !== next.snapInterval
   const snapIntervalUnitChanged = prev.snapIntervalUnit !== next.snapIntervalUnit
   const colorSchemeChanged = prev.colorScheme !== next.colorScheme
+  const hideSidebarInFullscreenChanged =
+    prev.hideSidebarInFullscreen !== next.hideSidebarInFullscreen
   const omniReopenInCtr = prev.omniReopenInCtr !== next.omniReopenInCtr
   const omniReopenInCtrPrefix = prev.omniReopenInCtrPrefix !== next.omniReopenInCtrPrefix
   const omniSwitchToPanel = prev.omniSwitchToPanel !== next.omniSwitchToPanel
@@ -97,6 +100,8 @@ export function updateSettingsBg(settings?: SettingsState | null): void {
   if (snapIntervalChanged || snapIntervalUnitChanged) SnapshotsBg.scheduleSnapshots()
 
   if (colorSchemeChanged) Styles.load()
+
+  if (hideSidebarInFullscreenChanged) Fullscreen.updateWatcher()
 
   if (
     omniReopenInCtr ||

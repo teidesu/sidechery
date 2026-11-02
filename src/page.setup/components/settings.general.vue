@@ -36,6 +36,14 @@ section(ref="el")
     :default="DEFAULT_SETTINGS.updateSidebarTitle"
     @update:value="Settings.saveDebounced(150)")
   ToggleField(
+    v-if="Fullscreen.isSupported()"
+    label="settings.hide_sidebar_in_fullscreen"
+    dbg="hideSidebarInFullscreen"
+    v-model:value="Settings.state.hideSidebarInFullscreen"
+    :default="DEFAULT_SETTINGS.hideSidebarInFullscreen"
+    :note="translate('settings.hide_sidebar_in_fullscreen_note')"
+    @update:value="Settings.saveDebounced(150)")
+  ToggleField(
     label="settings.mark_window"
     dbg="markWindow"
     v-model:value="Settings.state.markWindow"
@@ -91,6 +99,7 @@ import * as SetupPage from 'src/services/setup-page.fg'
 import ToggleField from '../../components/toggle-field.vue'
 import TextField from '../../components/text-field.vue'
 import * as Permissions from 'src/services/permissions.fg'
+import * as Fullscreen from 'src/services/fullscreen'
 
 const el = ref<HTMLElement | null>(null)
 const state = reactive({

@@ -116,6 +116,7 @@ export default defineConfig({
         sidepanel: 'sidebar',
         sync: 'popup.sync',
         'tab-preview': 'injections',
+        fullscreen: 'injections',
         url: 'sidebery',
       }
       for (const entrypoint of entrypoints) {

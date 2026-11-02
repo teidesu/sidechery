@@ -20,6 +20,7 @@ import * as Omnibox from 'src/services/omnibox.bg'
 import * as Styles from 'src/services/styles.bg'
 import * as SidebarAction from 'src/services/sidebar-action'
 import * as WindowsApi from 'src/services/windows-api'
+import * as Fullscreen from 'src/services/fullscreen'
 export default defineBackground(() => {
   markLocalStorage()
 
@@ -125,6 +126,7 @@ export default defineBackground(() => {
     await Sidebar.load()
     await Tabs.load()
     await Snapshots.scheduleSnapshots(true)
+    await Fullscreen.updateWatcher()
 
     Logs.info(`Init end: ${performance.now() - ts}ms`)
 
@@ -144,6 +146,7 @@ export default defineBackground(() => {
   })()
 
   Snapshots.setupListeners(initialized)
+  Fullscreen.setupListeners(initialized)
 
   function initToolbarButton(): void {
     void Menu.createBrowserActionMenu()

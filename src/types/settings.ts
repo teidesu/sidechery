@@ -7,6 +7,7 @@ export interface SettingsState {
   nativeScrollbarsLeft: boolean
   selWinScreenshots: boolean
   updateSidebarTitle: boolean
+  hideSidebarInFullscreen: boolean
   markWindow: boolean
   markWindowPreface: string
   copyTreeIndent: string

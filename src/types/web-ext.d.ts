@@ -56,6 +56,7 @@ declare namespace browser {
 
     type Sender = {
       id?: string
+      tab?: browser.tabs.Tab
     }
 
     type Port = {
@@ -581,7 +582,13 @@ declare namespace browser {
       openPanelOnActionClick?: boolean
     }
 
+    interface CloseOptions {
+      tabId?: ID
+      windowId?: ID
+    }
+
     function open(options: OpenOptions): Promise<void>
+    function close(options: CloseOptions): Promise<void>
     function setPanelBehavior(behavior: PanelBehavior): Promise<void>
   }
 
@@ -1539,5 +1546,21 @@ declare namespace browser {
     function executeScript<Args extends unknown[], Result>(
       details: InjectDetails<Args, Result>
     ): Promise<InjectionResult<Result>[]>
+
+    interface RegisteredContentScript {
+      id: string
+      js?: string[]
+      matches?: string[]
+    }
+
+    interface ContentScriptFilter {
+      ids?: string[]
+    }
+
+    function registerContentScripts(scripts: RegisteredContentScript[]): Promise<void>
+    function unregisterContentScripts(filter?: ContentScriptFilter): Promise<void>
+    function getRegisteredContentScripts(
+      filter?: ContentScriptFilter
+    ): Promise<RegisteredContentScript[]>
   }
 }

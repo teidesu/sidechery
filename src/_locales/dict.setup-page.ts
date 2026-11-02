@@ -1106,6 +1106,14 @@ Liste de “sous-chaines” ou “/RegExp/” avec une entrée par ligne:
     zh_TW: '使用當前面板的名稱作為側邊欄標題',
     ja: 'アクティブパネルの名前をサイドバーのタイトルとして使用する',
   },
+  'settings.hide_sidebar_in_fullscreen': {
+    en: 'Hide sidebar when a page enters fullscreen (experimental)',
+    ru: 'Скрывать боковую панель, когда страница переходит в полноэкранный режим (экспериментально)',
+  },
+  'settings.hide_sidebar_in_fullscreen_note': {
+    en: 'Chrome only lets the sidebar reopen after a click or key press, so after exiting with Esc it reappears on the next click on the page.',
+    ru: 'Chrome позволяет открыть боковую панель только после клика или нажатия клавиши, поэтому после выхода по Esc она появится при следующем клике по странице.',
+  },
   'settings.mark_window': {
     en: "Add preface to the browser window's title if Sidechery sidebar is active",
     de: 'Präfix dem Fensternamen des Browsers voranstellen, wenn die Sidechery-Seitenleiste geöffnet ist',

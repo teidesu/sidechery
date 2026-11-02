@@ -23,6 +23,7 @@ interface Window {
   translations: Record<string, Record<string, TranslationFn | string>> | undefined
 
   getSideberyState?: () => any
+  stopSideberyFullscreenWatcher?: () => void
 }
 
 interface HTMLElement {

@@ -7,6 +7,7 @@ export const DEFAULT_SETTINGS: SettingsState = {
   nativeScrollbarsLeft: false,
   selWinScreenshots: false,
   updateSidebarTitle: true,
+  hideSidebarInFullscreen: false,
   markWindow: false,
   markWindowPreface: '[Sidechery] ',
   copyTreeIndent: '',
