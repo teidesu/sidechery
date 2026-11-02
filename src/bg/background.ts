@@ -115,7 +115,13 @@ export default defineBackground(() => {
   Omnibox.load()
 
   const initialized = (async function main() {
-    await Promise.all([Windows.load(), Containers.load(), Settings.load(), Info.loadVersionInfo()])
+    await Promise.all([
+      Windows.load(),
+      Containers.load(),
+      Settings.load(),
+      Info.loadVersionInfo(),
+      Info.loadFileSchemeAccess(),
+    ])
     await Sidebar.load()
     await Tabs.load()
     await Snapshots.scheduleSnapshots(true)

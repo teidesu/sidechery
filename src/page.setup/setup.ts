@@ -56,6 +56,7 @@ async function main(): Promise<void> {
     Keybindings.load(),
     Info.loadVersionInfo(),
     Info.loadCurrentTabInfo(),
+    Info.loadFileSchemeAccess(),
   ])
   Logs.info(`Init: base services loaded: ${performance.now() - ts}ms`)
 

@@ -1043,6 +1043,7 @@ declare namespace browser {
    */
   namespace extension {
     const inIncognitoContext: boolean
+    function isAllowedFileSchemeAccess(): Promise<boolean>
   }
 
   /**

@@ -1,6 +1,25 @@
-import { describe, expect, test } from 'vitest'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 import * as Utils from './utils'
 import { PLACEHOLDER_URL } from 'src/defaults'
+
+const browserInfo = vi.hoisted(() => ({ firefox: true, fileAccess: false }))
+vi.mock('src/services/info', async importOriginal => ({
+  ...(await importOriginal<typeof import('src/services/info')>()),
+  get isFirefox() {
+    return browserInfo.firefox
+  },
+  get isChromium() {
+    return !browserInfo.firefox
+  },
+  get isFileSchemeAccessAllowed() {
+    return browserInfo.fileAccess
+  },
+}))
+
+beforeEach(() => {
+  browserInfo.firefox = true
+  browserInfo.fileAccess = false
+})
 
 describe('Utils.createGroupUrl()', () => {
   test('just name', () => {
@@ -142,6 +161,23 @@ file:///some/path/to/File%20Name.json
     expect(items[3].url).toBe(undefined)
     expect(items[3].title).toBe('[hey](not link)')
     expect(items.length).toBe(4)
+  })
+  test('chromium opens privileged urls directly, file urls only with file access', () => {
+    browserInfo.firefox = false
+    const input = `
+file:///some/path/to/File%20Name.json
+[1 2 3](blob:https://example.com/550e8400)
+<a href="chrome://settings">one two</a>`
+    let items = Utils.parseTextForItems(input)
+    expect(Utils.isPlaceholderUrl(items[0].url ?? '')).toBe(true)
+    expect(items[1].url).toBe('blob:https://example.com/550e8400')
+    expect(items[2].url).toBe('chrome://settings')
+    expect(Utils.isPlaceholderUrl(Utils.sanitizeUrl('javascript:alert(1)') ?? '')).toBe(true)
+
+    browserInfo.fileAccess = true
+    items = Utils.parseTextForItems(input)
+    expect(items[0].url).toBe('file:///some/path/to/File%20Name.json')
+    expect(items[0].title).toBe('File Name.json')
   })
 })
 

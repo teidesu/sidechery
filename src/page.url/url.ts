@@ -4,6 +4,7 @@ import type { PlaceholderPageInitData } from 'src/services/tabs.bg'
 import { decodePlaceholderInfo, toCSSVarName } from 'src/utils'
 import * as Logs from './url.logs'
 import * as IPPC from 'src/services/ippc.page'
+import * as Info from 'src/services/info'
 import { InstanceType } from 'src/enums'
 import { PAGE_HASH_RE } from 'src/defaults'
 
@@ -78,8 +79,10 @@ void (async () => {
   if (linkLabelLable) targetLinkLabelEl.innerText = linkLabelLable
   const copyBtnLabel = initData.labels?.copy_url ?? 'copy_url'
   if (copyBtnLabel) copyBtnEl.innerText = copyBtnLabel
-  const apiLimitNoteLabel = initData.labels?.api_limit_info ?? 'api_limit_info'
-  if (apiLimitNoteLabel) titleNoteEl.innerText = apiLimitNoteLabel
+  const noteLabelKey =
+    Info.isChromium && url.startsWith('file:') ? 'file_access_info' : 'api_limit_info'
+  const noteLabel = initData.labels?.[noteLabelKey] ?? noteLabelKey
+  if (noteLabel) titleNoteEl.innerText = noteLabel
 
   // Render title and url
   targetTitleEl.innerText = title

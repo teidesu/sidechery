@@ -28,6 +28,7 @@ export let majorVersion: number | undefined = undefined
 export let prevMajorVersion: number | undefined = undefined
 export let prevVersion: string | undefined = undefined
 export let browserInfo: browser.runtime.BrowserInfo | undefined
+export let isFileSchemeAccessAllowed = false
 
 export let currentTabId = NOID
 
@@ -70,6 +71,12 @@ export async function loadBrowserInfo(): Promise<browser.runtime.BrowserInfo> {
   }
 
   return browserInfo
+}
+
+// Chromium reloads the extension when "Allow access to file URLs" is toggled
+export async function loadFileSchemeAccess(): Promise<void> {
+  if (isFirefox) return
+  isFileSchemeAccessAllowed = await browser.extension.isAllowedFileSchemeAccess()
 }
 
 export function ffVersionLowerThan(v: string) {

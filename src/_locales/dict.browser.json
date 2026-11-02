@@ -24,7 +24,6 @@
     "zh_TW": "切換 Sidechery 側邊欄\n中鍵點選：開啟設定",
     "ja": "Sidechery サイドバーの切り替え\n中クリック: 設定を開く"
   },
-
   "KbOpenSidebarPanel": {
     "en": "Open/Close sidebar panel",
     "de": "Öffne/Schließe Seitenleiste",
@@ -1333,7 +1332,6 @@
     "zh_TW": "依最近瀏覽時間排序當前面板的分頁（新-舊）",
     "ja": "アクティブパネルのタブをアクセス時間でソート（新しい順）"
   },
-
   "proxy_popup_title_prefix": {
     "en": "Proxy for \"",
     "de": "Proxy für \"",
@@ -1356,7 +1354,6 @@
     "zh_TW": "」容器",
     "ja": "」コンテナ"
   },
-
   "unavailable_url": {
     "en": "Unavailable URL",
     "de": "Nicht verfügbare URL",
@@ -1413,7 +1410,7 @@
     "ja": "URL をコピー"
   },
   "api_limit_info": {
-    "en": "Sidechery is unable to open this link due to security-related restrictions of Firefox.",
+    "en": "Sidechery is unable to open this link due to security-related browser restrictions.",
     "de": "Aufgrund von sicherheitsrelevanten API Beschränkungen kann Sidechery diesen Link nicht öffnen.",
     "fr": "Sidechery ne peux pas ouvrir ce lien à cause des restrictions de sécurité de Firefox",
     "hu": "A Firefox biztonsági beállításai miatt ezt a hivatkozást nem lehet megnyitni.",
@@ -1423,7 +1420,6 @@
     "zh_TW": "由於安全相關的 API 限制，Sidechery 無法開啟此鏈接。",
     "ja": "Firefox のセキュリティ関連の制限により、Sidechery はこのリンクを開けません。"
   },
-
   "group_disconnected_warn": {
     "en": "Cannot connect to the sidebar...",
     "de": "Keine Verbindung zur Seitenleiste möglich...",
@@ -1478,5 +1474,14 @@
     "zh_CN": "打开新标签页",
     "zh_TW": "開啟新分頁",
     "ja": "新しいタブを開く"
+  },
+  "file_access_info": {
+    "en": "Sidechery cannot open local files. Enable \"Allow access to file URLs\" in the extension details.",
+    "de": "Sidechery kann keine lokalen Dateien öffnen. Aktiviere \"Zugriff auf Datei-URLs zulassen\" in den Erweiterungsdetails.",
+    "fr": "Sidechery ne peut pas ouvrir les fichiers locaux. Activez \"Autoriser l'accès aux URL de fichiers\" dans les détails de l'extension.",
+    "ru": "Sidechery не может открывать локальные файлы. Включите \"Разрешить открывать файлы по ссылкам\" в сведениях о расширении.",
+    "zh_CN": "Sidechery 无法打开本地文件。请在扩展程序详情中启用“允许访问文件网址”。",
+    "zh_TW": "Sidechery 無法開啟本機檔案。請在擴充功能詳細資料中啟用「允許存取檔案網址」。",
+    "ja": "Sidechery はローカルファイルを開けません。拡張機能の詳細で「ファイルの URL へのアクセスを許可する」を有効にしてください。"
   }
 }

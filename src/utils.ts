@@ -2,6 +2,7 @@ import type * as T from './types'
 import * as D from './defaults'
 import * as E from './enums'
 import { translate } from './dict'
+import * as Info from './services/info'
 
 // prettier-ignore
 const ALPH = [
@@ -733,16 +734,7 @@ export function sanitizeUrl(url?: string, title?: string): string | undefined {
       // Do nothing
     }
   }
-  if (
-    url.startsWith('chrome:') ||
-    url.startsWith('javascript:') ||
-    url.startsWith('data:') ||
-    url.startsWith('file:') ||
-    url.startsWith('jar:file:') ||
-    url.startsWith('blob:') ||
-    url.startsWith('magnet:') ||
-    url.startsWith('about:')
-  ) {
+  if (isUnopenableUrl(url)) {
     try {
       return createPlaceholderUrl({ url, title })
     } catch {
@@ -751,6 +743,19 @@ export function sanitizeUrl(url?: string, title?: string): string | undefined {
   } else {
     return url
   }
+}
+
+function isUnopenableUrl(url: string): boolean {
+  if (url.startsWith('javascript:') || url.startsWith('jar:file:')) return true
+  if (url.startsWith('file:')) return !Info.isFileSchemeAccessAllowed
+  if (Info.isChromium) return false
+  return (
+    url.startsWith('chrome:') ||
+    url.startsWith('data:') ||
+    url.startsWith('blob:') ||
+    url.startsWith('magnet:') ||
+    url.startsWith('about:')
+  )
 }
 
 /**

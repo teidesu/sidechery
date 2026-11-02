@@ -84,6 +84,7 @@ async function main(): Promise<void> {
     Permissions.load(),
     Info.loadVersionInfo(),
     Info.loadBrowserInfo(),
+    Info.loadFileSchemeAccess(),
   ])
 
   IPC.setWinId(Windows.id)
